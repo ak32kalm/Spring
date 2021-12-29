@@ -2,17 +2,20 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="co.micol.prj.notice.service.NoticeMapper">
 <select id="noticeSelectList" resultType="co.micol.prj.notice.service.NoticeVO">
-SELECT * FROM NOTICE OREDER BY ID DESC
+SELECT * FROM NOTICE ORDER BY ID DESC
 </select>
 
-<!-- 4. 최신글부터 보여주세요-->
+<!-- 4. serviceIml만들러 ㄱ-->
 <select id="noticeSelect" parameterType="co.micol.prj.notice.service.NoticeVO"
 							resultType="co.micol.prj.notice.service.NoticeVO">
  SELECT * FROM NOTICE WHERE ID = #{id}
 </select>
 
+<!-- key값을 자동으로 받아오기 selectKey / id: 변수명 / BEFORE : 하기전에 실행하라 /-->
 <insert id="noticeInsert" parameterType="co.micol.prj.notice.service.NoticeVO">
-	
+	<selectKey keyProperty="id" resultType="int" order="BEFORE">
+		SELECT NVL(MAX(ID+1),1) AS ID FROM NOTICE
+	</selectKey>
 	INSERT INTO NOTICE(ID, WRITERID, WRITERNAME, WRITERDATE, TITLE, SUBJECT, ATTACHE)
 	VALUES(#{id}, #{writerId}, #{writerName}, #{writerDate}, #{title}, #{subject}, #{attache})
 </insert>

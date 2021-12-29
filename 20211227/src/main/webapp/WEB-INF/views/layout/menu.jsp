@@ -25,7 +25,10 @@
 			</c:if>
 
 			<li><a href="#">Contact</a></li>
-			<li><a href="#">Notice</a></li>
+			
+			<!-- 6. noticeSelectList.do 콘드롤러 만들러 ㄱㄱ -->
+			<li><a href="noticeSelectList.do">Notice</a></li>
+			
 			<li><a href="#">Product</a></li>
 			<c:if test="${author eq 'ADMIN' }">
 				<li><a href="#">Service</a></li>
